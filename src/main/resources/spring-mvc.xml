@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       https://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--创建spring整合mvc层的文件spring-mvc.xml，主要配置springMVC静态资源过滤，开启springMVC注解驱动-->
+    <!--1.注解驱动-->
+    <mvc:annotation-driven/>
+    <!--2处理器映射器和处理器适配器-->
+    <mvc:default-servlet-handler/>
+    <!--3扫描包-->
+    <context:component-scan base-package="com.zc.controller"/>
+
+    <!-- ②：启动Spring MVC的注解功能，完成请求和注解POJO的映射 -->
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>-->
+    <!--<bean name="/test" class="zc.controller.UserController"/>-->
+    <!--  ③：对模型视图名称的解析，即在模型视图名称添加前后缀  使用了 Spring 2.5 的特殊命名空间，即 p 命名空间，它将原先需要通过 <property> 元素配置的内容转化为 <bean> 属性配置，在一定程度上简化了 <bean> 的配置。-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"  id="internalResourceViewResolver"
+          p:prefix="/" p:suffix=".jsp"/>
+
+    <!--上传图片-->
+    <!--注册multipartResolver,由DispatcherServlet来负责调用-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置字符编码防止文件名乱码-->
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--设置单个上传文件的大小，单位是字节b-->
+        <property name="maxUploadSizePerFile" value="104857600"/>
+    </bean>
+</beans>

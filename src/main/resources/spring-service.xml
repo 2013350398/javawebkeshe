@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--
+    创建spring整合service层的文件spring-service.xml，
+    主要配置让spring去扫描service包的位置，配置impl中要注入的mapper信息，
+    声明事务的提交方式，以及AOP事务的支持。
+    -->
+    <!--扫描service下的包 -->
+    <context:component-scan base-package="com.zc.service"/>
+    <context:component-scan base-package="com.zc.dao"/>
+    <!--&lt;!&ndash; 2业务类注入到spring&ndash;&gt;-->
+    <!--<bean id="UserServiceImpl" class="zc.service.impl.UserImpl">-->
+    <!--<property name="userMapper" ref="userMapper"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 3声明事务提交方式&ndash;&gt;-->
+    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash; 4AOP事务支持&ndash;&gt;-->
+</beans>

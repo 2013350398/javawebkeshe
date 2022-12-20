@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UCMapper">
+    <select id="getAllUC" resultType="UC">
+        select *
+        from uc;
+    </select>
+    <select id="getUCById" resultType="UC">
+        select *
+        from uc
+        where uid = #{uid} or cid=#{cid};
+    </select>
+    <insert id="addUC" parameterType="UC">
+        insert into uc(uid, cid)
+        values (#{uid}, #{cid});
+    </insert>
+    <delete id="deleteUC" parameterType="int">
+        delete
+        from uc
+        where uid = #{uid} or cid=#{cid};
+    </delete>
+    <select id="selectCid" parameterType="int" resultType="int">
+        select cid
+        from uc
+        where uid = #{uid};
+    </select>
+</mapper>

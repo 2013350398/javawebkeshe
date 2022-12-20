@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.CharaMapper">
+    <select id="getAllChara" resultType="Chara">
+        select *
+        from chara;
+    </select>
+    <select id="getCharaById" parameterType="int" resultType="Chara">
+        select *
+        from chara
+        where cid = #{cid};
+    </select>
+    <insert id="addChara" parameterType="Chara">
+        insert into chara(cname, creattime, state, tips)
+        values (#{cname}, #{creattime}, #{state}, #{tips})
+    </insert>
+    <delete id="deleteChara" parameterType="int">
+        delete
+        from chara
+        where cid = #{cid};
+    </delete>
+    <update id="updateChara" parameterType="Chara">
+    update chara
+    set cname=#{cname},
+    creattime=#{creattime},
+    state=#{state},
+    tips=#{tips},
+    where cid = #{cid}
+    </update>
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.SpecMapper">
+    <select id="getAllSpec" parameterType="String" resultType="Spec">
+        select *
+        from spec
+        where unitname = #{unitname};
+    </select>
+    <select id="showOthers" parameterType="String" resultType="Spec">
+        select *
+        from spec
+        where unitname != #{unitname} and state = '是';
+    </select>
+    <select id="showAll" resultType="Spec">
+        select *
+        from spec;
+    </select>
+    <select id="getSpecById" parameterType="int" resultType="Spec">
+        select *
+        from spec
+        where sid = #{sid};
+    </select>
+
+    <!--管理员查询相关标本-->
+    <select id="selectSpecBySnameAdmin" resultType="Spec">
+        select *
+        from spec
+        where sname like #{info};
+    </select>
+    <select id="selectSpecBySiteAdmin" resultType="Spec">
+        select *
+        from spec
+        where site like #{info};
+    </select>
+    <select id="selectSpecByMaterialAdmin" resultType="Spec">
+        select *
+        from spec
+        where material like #{info};
+    </select>
+    <select id="selectSpecByUnitnameAdmin" resultType="Spec">
+        select *
+        from spec
+        where unitname like #{info};
+    </select>
+    <!--查询自己单位的相关标本-->
+    <select id="selectSpecBySname" resultType="Spec">
+        select *
+        from spec
+        where unitname = #{unitname} and sname like #{info};
+    </select>
+    <select id="selectSpecBySite" resultType="Spec">
+        select *
+        from spec
+        where unitname = #{unitname} and site like #{info};
+    </select>
+    <select id="selectSpecByMaterial" resultType="Spec">
+        select *
+        from spec
+        where unitname = #{unitname} and material like #{info};
+    </select>
+    <select id="selectSpecByUnitname" resultType="Spec">
+        select *
+        from spec
+        where unitname = #{unitname} and unitname like #{info};
+    </select>
+
+    <!--查询其他单位的相关标本-->
+    <select id="selectOtherSpecBySname" resultType="Spec">
+        select *
+        from spec
+        where unitname != #{unitname} and state = '是' and sname like #{info};
+    </select>
+    <select id="selectOtherSpecBySite" resultType="Spec">
+        select *
+        from spec
+        where unitname != #{unitname} and state = '是' and site like #{info};
+    </select>
+    <select id="selectOtherSpecByMaterial" resultType="Spec">
+        select *
+        from spec
+        where unitname != #{unitname} and state = '是' and material like #{info};
+    </select>
+    <select id="selectOtherSpecByUnitname" resultType="Spec">
+        select *
+        from spec
+        where unitname != #{unitname} and state = '是' and unitname like #{info};
+    </select>
+
+    <insert id="addSpec" parameterType="Spec">
+        insert into spec(sname, site, excavatetime, material, ages, entryman, descr, entrytime, pic, state, unitname, code)
+        values (#{sname}, #{site}, #{excavatetime}, #{material}, #{ages}, #{entryman}, #{descr}, #{entrytime},#{pic}, #{state}, #{unitname}, #{code})
+    </insert>
+    <delete id="deleteSpec" parameterType="int">
+        delete
+        from spec
+        where sid = #{sid};
+    </delete>
+    <update id="updateSpec" parameterType="Spec">
+    update spec
+    set unitname=#{unitname},
+    code=#{code},
+    site=#{site},
+    excavatetime=#{excavatetime},
+    material=#{material},
+    ages=#{ages},
+    entryman=#{entryman},
+    descr=#{descr},
+    pic=#{pic},
+    state=#{state}
+    where sid = #{sid}
+    </update>
+</mapper>

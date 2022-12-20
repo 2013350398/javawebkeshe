@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UnitMapper">
+    <select id="getAllUnit" resultType="Unit">
+        select *
+        from unit;
+    </select>
+    <select id="getUnitById" resultType="Unit">
+        select *
+        from unit
+        where unid = #{unid};
+    </select>
+    <select id="selectUnitByName" resultType="Unit">
+        select *
+        from unit
+        where unname like #{unid};
+    </select>
+    <insert id="addUnit" parameterType="Unit">
+        insert into unit(unname, linkman, tel, email, site, unittype)
+        values (#{unname}, #{linkman}, #{tel}, #{email}, #{site}, #{unittype})
+    </insert>
+    <delete id="deleteUnit" parameterType="int">
+        delete
+        from unit
+        where unid = #{unid};
+    </delete>
+    <update id="updateUnit" parameterType="Unit">
+    update unit
+    set unname=#{unname},
+    linkman=#{linkman},
+    tel=#{tel},
+    email=#{email},
+    site=#{site},
+    unittype=#{unittype}
+    where unid = #{unid}
+    </update>
+</mapper>

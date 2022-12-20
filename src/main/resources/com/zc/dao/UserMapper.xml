@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.UserMapper">
+    <select id="getAllUser" resultType="User">
+        select *
+        from users;
+    </select>
+    <select id="getUserById" parameterType="int" resultType="User">
+        select *
+        from users
+        where uid = #{uid};
+    </select>
+    <select id="getUserByName" parameterType="String" resultType="User">
+        select *
+        from users
+        where username = #{username};
+    </select>
+    <insert id="addUser" parameterType="User">
+        insert into users(username, password, realname, tel, email, home,unitname, creattime, state,lasttime ,num, head, sexy, regist, answer)
+        values (#{username}, #{password}, #{realname}, #{tel}, #{email}, #{home},#{unitname}, #{creattime},#{state},#{lasttime}, #{num}, #{head}, #{sexy}, #{regist}, #{answer})
+    </insert>
+    <delete id="deleteUser" parameterType="int">
+        delete
+        from users
+        where uid = #{uid};
+    </delete>
+    <!--不能更改：-->
+    <update id="updateUser" parameterType="User">
+    update users
+    set password=#{password},
+    realname=#{realname},
+    tel=#{tel},
+    email=#{email},
+    home=#{home},
+    unitname=#{unitname},
+    num=#{num},
+    regist=#{regist},
+    creattime=#{creattime},
+    sexy=#{sexy},
+    head=#{head},
+    state=#{state},
+    lasttime=#{lasttime},
+    answer=#{answer}
+    where username = #{username}
+    </update>
+</mapper>

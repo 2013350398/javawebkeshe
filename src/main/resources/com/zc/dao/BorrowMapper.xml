@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zc.dao.BorrowMapper">
+    <!--获取其他单位借阅此标本的信息-->
+    <select id="getOtherBorrow" resultType="Borrow">
+        select *
+        from borrow
+        where uid != #{uid} and sid = #{sid};
+    </select>
+    <!--获取自己借阅此标本的信息的信息-->
+    <select id="getAllBorrow" resultType="Borrow">
+        select *
+        from borrow
+        where uid = #{uid} and sid = #{sid};
+    </select>
+    <select id="getBorrowById" parameterType="int" resultType="Borrow">
+        select *
+        from borrow
+        where bid = #{bid};
+    </select>
+    <!--删除之前检查是否仍被借阅    查询对应标本状态-->
+    <select id="checkBorrow" resultType="Borrow">
+        select *
+        from borrow
+        where site=#{site} and sid=#{sid};
+    </select>
+    <!--获取所有借阅自己单位的信息-->
+    <select id="getBorrowByUid" resultType="Borrow">
+        select *
+        from borrow
+        where unit=#{unit} and site=#{site};
+    </select>
+    <!--获取所有自己借阅其他单位的信息-->
+    <select id="getLendByUid" resultType="Borrow">
+        select *
+        from borrow
+        where uid = #{uid} and site = #{site};
+    </select>
+    <insert id="addBorrow" parameterType="Borrow">
+        insert into borrow(unit, btime, site, reason, uid, tel, email, tips, sid, borrowman)
+        values (#{unit}, #{btime}, #{site}, #{reason}, #{uid}, #{tel},#{email}, #{tips},#{sid},#{borrowman})
+    </insert>
+    <!--删除标本时删除相关借阅记录 外键完整性-->
+    <delete id="deleteBorrow" parameterType="int">
+        delete
+        from borrow
+        where bid = #{bid};
+    </delete>
+    <!--删除用户uid的相关借阅申请-->
+    <delete id="deleteBorrowByUid" parameterType="int">
+        delete
+        from borrow
+        where uid = #{uid};
+    </delete>
+    <update id="updateBorrow">
+    update borrow
+    set btime=#{btime},
+    rtime=#{rtime},
+    btime=#{btime},
+    site=#{site},
+    tips=#{tips}
+    where bid = #{bid}
+    </update>
+    <!--<delete id="deleteOtherBorrow" parameterType="int">-->
+    <!--delete-->
+    <!--from borrow-->
+    <!--where sid = #{sid};-->
+    <!--</delete>-->
+</mapper>
